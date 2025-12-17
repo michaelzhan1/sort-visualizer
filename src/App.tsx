@@ -1,4 +1,5 @@
-import "./App.css";
+import { Display } from "@/components/display.component";
+import "@/App.css";
 import { shuffle } from "@/utils/random.util";
 
 function App() {
@@ -11,6 +12,12 @@ function App() {
       <div>
         <span>Array: </span>
         <span>{arr.join(", ")}</span>
+      </div>
+      <div>
+        <div><span>Display</span></div>
+        <div>
+          <Display arr={arr} />
+        </div>
       </div>
     </>
   );
