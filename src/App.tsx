@@ -16,7 +16,7 @@ function App() {
       <div>
         <div><span>Display</span></div>
         <div>
-          <Display arr={arr} />
+          <Display arr={arr} done={false} />
         </div>
       </div>
     </>

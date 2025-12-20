@@ -1,6 +1,6 @@
 import type { DisplayProps } from "@/components/types";
 
-export function Display({ arr, width = 400, height = 200 }: DisplayProps) {
+export function Display({ arr, done, width = 400, height = 200 }: DisplayProps) {
   const n = arr.length;
   const maxVal = Math.max(...arr);
 
@@ -9,6 +9,8 @@ export function Display({ arr, width = 400, height = 200 }: DisplayProps) {
   const innerHeight = height - padding;
 
   const barWidth = (innerWidth + 1) / n - 1;
+
+  const color = done ? "green" : "steelblue";
 
   return (
     <svg
@@ -28,7 +30,7 @@ export function Display({ arr, width = 400, height = 200 }: DisplayProps) {
               y={innerHeight - barHeight}
               width={barWidth}
               height={barHeight}
-              style={{ fill: "blue" }}
+              style={{ fill: color }}
             />
           );
         })}
