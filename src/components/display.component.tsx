@@ -1,9 +1,14 @@
 import type { DisplayProps } from "@/components/types";
 
-export function Display({ arr, width = 800, height = 300 }: DisplayProps) {
+export function Display({ arr, width = 400, height = 200 }: DisplayProps) {
   const n = arr.length;
   const maxVal = Math.max(...arr);
-  const barWidth = width / n;
+
+  const padding = 8;
+  const innerWidth = width - padding * 2;
+  const innerHeight = height - padding;
+
+  const barWidth = (innerWidth + 1) / n - 1;
 
   return (
     <svg
@@ -11,24 +16,23 @@ export function Display({ arr, width = 800, height = 300 }: DisplayProps) {
       height={height}
       viewBox={`0 0 ${width} ${height}`}
       shapeRendering="crispEdges"
+      style={{ border: "1px black solid"}}
     >
-      {arr.map((val, i) => {
-        const barHeight = (val / maxVal) * height;
-        return (
-          <rect
-            key={i}
-            x={i * barWidth}
-            y={height - barHeight}
-            width={barWidth}
-            height={barHeight}
-            style={{
-              fill: "white",
-              stroke: "black",
-              strokeWidth: 3,
-            }}
-          />
-        )
-      })}
+      <g transform={`translate(${padding}, ${padding})`}>
+        {arr.map((val, i) => {
+          const barHeight = (val / maxVal) * innerHeight;
+          return (
+            <rect
+              key={i}
+              x={i * barWidth + i}
+              y={innerHeight - barHeight}
+              width={barWidth}
+              height={barHeight}
+              style={{ fill: "blue" }}
+            />
+          );
+        })}
+      </g>
     </svg>
-  )
+  );
 }

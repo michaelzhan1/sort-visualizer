@@ -3,7 +3,7 @@ import "@/App.css";
 import { shuffle } from "@/utils/random.util";
 
 function App() {
-  const arr = Array.from({ length: 10 }, (_, i) => i + 1);
+  const arr = Array.from({ length: 25 }, (_, i) => i + 1);
   shuffle(arr);
 
   return (
