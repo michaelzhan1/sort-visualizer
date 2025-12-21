@@ -1,8 +1,8 @@
-import { useRef, useState } from "react";
+import type { AlgorithmFactory } from "@/common/types";
+import { useCallback, useRef, useState } from "react";
 
-import type { Algorithm } from "@/sort/algorithm";
 
-export function useStepper(alg: Algorithm, initial: number[]) {
+export function useStepper(algFactory: AlgorithmFactory, initial: number[]) {
   const genRef = useRef<Generator<number[], number[], number[]> | null>(null);
 
   const [arrs, setArrs] = useState<number[][]>([initial]);
@@ -10,12 +10,12 @@ export function useStepper(alg: Algorithm, initial: number[]) {
   const [done, setDone] = useState<boolean>(false);
 
   // callback to start stepper. can use to reset if needed.
-  const start = () => {
-    genRef.current = alg.step(initial);
+  const start = useCallback(() => {
+    genRef.current = algFactory().step(initial);
     setArrs([initial]);
     setIdx(0);
     setDone(false);
-  };
+  }, [algFactory, initial]);
 
   const stepFwd = () => {
     if (!genRef.current) return;

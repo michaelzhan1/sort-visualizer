@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from "react";
 
 import type { DropdownProps } from "@/components/types";
 
-import "src/components/dropdown.css";
+import "@/components/dropdown.css";
 
-export function Dropdown({
+export function Dropdown<T>({
   id,
   options,
   selectedValue,
   onSelect,
-}: DropdownProps) {
+}: DropdownProps<T>) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -44,7 +44,7 @@ export function Dropdown({
       <div className="dropdown-list" hidden={!isOpen}>
         {options.map((option) => (
           <div
-            key={option.value}
+            key={option.label}
             className="dropdown-item"
             onClick={() => {
               onSelect(option.value);

@@ -5,14 +5,14 @@ export interface DisplayProps {
   height?: number;
 }
 
-interface DropdownOption {
+export interface DropdownOption<T> {
   label: string;
-  value: string;
+  value: T;
 }
 
-export interface DropdownProps {
-  id: string;
-  options: DropdownOption[];
+export interface DropdownProps<T> {
+  id?: string;
+  options: DropdownOption<T>[];
   selectedValue: string;
-  onSelect: (value: string) => void;
+  onSelect: (value: T) => void;
 }

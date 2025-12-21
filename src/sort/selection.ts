@@ -1,17 +1,17 @@
-import type { Algorithm } from "@/sort/algorithm";
+import type { Algorithm } from "@/common/types";
 
-export class Insertion implements Algorithm {
+export class Selection implements Algorithm {
   *step(arr: number[]): Generator<number[], number[], number[]> {
     const n = arr.length;
     let prev = [...arr];
 
     for (let i = 0; i < n - 1; i++) {
-      let minVal = arr[i];
+      let minVal = prev[i];
       let minIdx = i;
 
       for (let j = i + 1; j < n; j++) {
-        if (arr[j] < minVal) {
-          minVal = arr[j];
+        if (prev[j] < minVal) {
+          minVal = prev[j];
           minIdx = j;
         }
       }
