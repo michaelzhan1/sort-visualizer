@@ -1,4 +1,4 @@
-export function shuffle(arr: unknown[]): void {
+export function shuffle<T>(arr: T[]): T[] {
   const n = arr.length;
   for (let i = n - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * i);
@@ -6,4 +6,5 @@ export function shuffle(arr: unknown[]): void {
     arr[i] = arr[j];
     arr[j] = tmp;
   }
+  return arr;
 }
