@@ -11,7 +11,6 @@ export interface DropdownOption<T> {
 }
 
 export interface DropdownProps<T> {
-  id?: string;
   options: DropdownOption<T>[];
   selectedValue: string;
   onSelect: (value: T) => void;

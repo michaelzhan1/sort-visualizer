@@ -3,8 +3,19 @@
   display: inline-block;
 }
 
+.dropdown-input-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: black solid 1px;
+  padding: 2px 4px;
+  cursor: default;
+}
+
 .dropdown-input {
   width: 100%;
+  border: none;
+  pointer-events: none;
 }
 
 .dropdown-list {
@@ -20,7 +31,13 @@
   overflow-y: auto;
   z-index: 1000;
 
-  > option:not:last-child {
-    border-bottom: 1px solid #eee;
-  }
+  cursor: default;
+}
+
+.dropdown-list > option:hover {
+  background-color: lightgray;
+}
+
+.dropdown-list > option:not(:last-child) {
+  border-bottom: 1px solid #eee;
 }
