@@ -2,18 +2,19 @@ import type { Algorithm } from "@/sort/algorithm";
 
 export class Bubble implements Algorithm {
   *step(arr: number[]): Generator<number[], number[], number[]> {
-    // temp: do a cycle for testing purposes and easy implementation
     const n = arr.length;
-    let prev = arr;
+    let prev = [...arr];
 
-    for (let count = 0; count < n; count++) {
-      const next = [...prev];
-      for (let i = 0; i < n - 1; i++) {
-        next[i] = prev[i + 1];
+    for (let i = 0; i < n - 1; i++) {
+      for (let j = n - 1; j >= 0; j--) {
+        if (prev[j] > prev[j + 1]) {
+          const next = [...prev];
+          next[j] = prev[j + 1];
+          next[j + 1] = prev[j];
+          yield next;
+          prev = next;
+        }
       }
-      next[n - 1] = prev[0];
-      yield next;
-      prev = next;
     }
     return prev;
   }

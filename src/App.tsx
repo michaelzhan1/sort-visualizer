@@ -7,7 +7,7 @@ import { Bubble } from "@/sort/bubble";
 import { shuffle } from "@/utils/random.util";
 
 function App() {
-  const initial = shuffle(Array.from({ length: 5 }, (_, i) => i + 1));
+  const initial = shuffle(Array.from({ length: 10 }, (_, i) => i + 1));
 
   const { arrs, idx, done, stepFwd, stepRev, start } = useStepper(
     new Bubble(),
@@ -21,15 +21,11 @@ function App() {
     <>
       <h1>Visualizer</h1>
       <div>
-        <span>Array: </span>
-        <span>{initial.join(", ")}</span>
-      </div>
-      <div>
         <div>
-          <span>Display</span>
+          <span>Algorithm</span>
         </div>
         <div>
-          <Display arr={arrs[idx]} done={false} />
+          <Display arr={arrs[idx]} done={done && idx >= arrs.length - 1} />
         </div>
         <div>
           <span>Step Index: {idx}</span>
