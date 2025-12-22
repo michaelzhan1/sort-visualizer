@@ -1,4 +1,9 @@
 import type { DisplayProps } from "@/components/types";
+import type { Highlight } from "@/common/types";
+
+function getHighlight(highlights: Highlight[], idx: number): string | undefined {
+  return highlights.find((h) => h.idx === idx)?.color;
+}
 
 export function Display({
   step,
@@ -18,25 +23,6 @@ export function Display({
 
   const bulkColor = done ? "green" : "steelblue";
 
-  const rects = arr.map((val, i) => {
-    const barHeight = (val / maxVal) * innerHeight;
-    return (
-      <rect
-        key={i}
-        x={i * barWidth + i}
-        y={innerHeight - barHeight}
-        width={barWidth}
-        height={barHeight}
-        style={{ fill: bulkColor }}
-      />
-    );
-  });
-
-  // override color for highlights
-  for (const { color, idx } of highlights) {
-    rects[idx].props.style = { fill: color };
-  }
-
   return (
     <svg
       width={width}
@@ -46,7 +32,18 @@ export function Display({
       style={{ border: "1px black solid" }}
     >
       <g transform={`translate(${padding}, ${padding})`}>
-        {rects}
+        {arr.map((val, i) => (
+          <rect
+            key={i}
+            x={i * (barWidth + 1)}
+            y={innerHeight - (val / maxVal) * innerHeight}
+            width={barWidth}
+            height={(val / maxVal) * innerHeight}
+            style={{
+              fill: getHighlight(highlights, i) ?? bulkColor,
+            }}
+          />
+        ))}
       </g>
     </svg>
   );

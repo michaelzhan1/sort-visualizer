@@ -24,7 +24,7 @@ function App() {
   const [algChoice, setAlgChoice] = useState<AlgorithmName>("Bubble");
   const [playing, setPlaying] = useState(false);
 
-  const { arrs, idx, done, stepFwd, stepRev, start } = useStepper(
+  const { steps, idx, done, stepFwd, stepRev, start } = useStepper(
     algorithms[algChoice],
     initial,
   );
@@ -61,17 +61,17 @@ function App() {
           />
         </div>
         <div>
-          <Display arr={arrs[idx]} done={done && idx >= arrs.length - 1} />
+          <Display step={steps[idx]} done={done && idx >= steps.length - 1} />
         </div>
         <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
           <button onClick={stepRev} disabled={idx <= 0}>
             &larr;
           </button>
-          <button onClick={stepFwd} disabled={done && idx >= arrs.length - 1}>
+          <button onClick={stepFwd} disabled={done && idx >= steps.length - 1}>
             &rarr;
           </button>
           <span>Step: {idx}</span>
-          {done && idx >= arrs.length - 1 ? (
+          {done && idx >= steps.length - 1 ? (
             <button onClick={onReset}>Reset</button>
           ) : (
             <button onClick={onTogglePlaying}>

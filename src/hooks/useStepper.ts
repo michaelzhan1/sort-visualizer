@@ -1,18 +1,28 @@
 import { useCallback, useRef, useState } from "react";
 
-import type { AlgorithmFactory } from "@/common/types";
+import type { AlgorithmFactory, Step } from "@/common/types";
 
 export function useStepper(algFactory: AlgorithmFactory, initial: number[]) {
-  const genRef = useRef<Generator<number[], number[], number[]> | null>(null);
+  const genRef = useRef<Generator<Step, Step, void> | null>(null);
 
-  const [arrs, setArrs] = useState<number[][]>([initial]);
+  const [steps, setSteps] = useState<Step[]>([
+    {
+      arr: initial,
+      highlights: [],
+    },
+  ]);
   const [idx, setIdx] = useState<number>(0);
   const [done, setDone] = useState<boolean>(false);
 
   // callback to start stepper. can use to reset if needed.
   const start = useCallback(() => {
     genRef.current = algFactory().step(initial);
-    setArrs([initial]);
+    setSteps([
+      {
+        arr: initial,
+        highlights: [],
+      },
+    ]);
     setIdx(0);
     setDone(false);
   }, [algFactory, initial]);
@@ -20,15 +30,15 @@ export function useStepper(algFactory: AlgorithmFactory, initial: number[]) {
   const stepFwd = () => {
     if (!genRef.current) return;
 
-    if (idx >= arrs.length - 1) {
+    if (idx >= steps.length - 1) {
       const res = genRef.current.next();
-      setArrs([...arrs, res.value]);
+      setSteps([...steps, res.value]);
       if (res.done) {
         setDone(true);
       }
     }
 
-    if (!done || idx < arrs.length - 1) {
+    if (!done || idx < steps.length - 1) {
       setIdx((i) => i + 1);
     }
   };
@@ -38,7 +48,7 @@ export function useStepper(algFactory: AlgorithmFactory, initial: number[]) {
   };
 
   return {
-    arrs,
+    steps,
     idx,
     done,
     stepFwd,

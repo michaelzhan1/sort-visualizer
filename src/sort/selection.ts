@@ -1,7 +1,7 @@
 import type { Algorithm, Step } from "@/common/types";
 
 export class Selection implements Algorithm {
-  *step(arr: number[]): Generator<Step[], Step[], number[]> {
+  *step(arr: number[]): Generator<Step, Step, void> {
     const n = arr.length;
     let prev = [...arr];
 
@@ -19,10 +19,21 @@ export class Selection implements Algorithm {
       const next = [...prev];
       next[i] = prev[minIdx];
       next[minIdx] = prev[i];
-      yield next;
+      yield {
+        arr: next,
+        highlights: [
+          {
+            color: "red",
+            idx: 1,
+          },
+        ],
+      };
       prev = next;
     }
 
-    return prev;
+    return {
+      arr: prev,
+      highlights: [],
+    };
   }
 }

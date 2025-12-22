@@ -1,7 +1,7 @@
 import type { Algorithm, Step } from "@/common/types";
 
 export class Bubble implements Algorithm {
-  *step(arr: number[]): Generator<Step[], Step[], number[]> {
+  *step(arr: number[]): Generator<Step, Step, void> {
     const n = arr.length;
     let prev = [...arr];
 
@@ -11,11 +11,17 @@ export class Bubble implements Algorithm {
           const next = [...prev];
           next[j] = prev[j + 1];
           next[j + 1] = prev[j];
-          yield next;
+          yield {
+            arr: next,
+            highlights: [],
+          };
           prev = next;
         }
       }
     }
-    return prev;
+    return {
+      arr: prev,
+      highlights: [],
+    };
   }
 }
