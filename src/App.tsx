@@ -15,9 +15,14 @@ const algorithms: Record<AlgorithmName, AlgorithmFactory> = {
   Selection: () => new Selection(),
 };
 
+// todos:
+// highlighting
+// jump to step?
+
 function App() {
   const initial = shuffle(Array.from({ length: 10 }, (_, i) => i + 1));
   const [algChoice, setAlgChoice] = useState<AlgorithmName>("Bubble");
+  const [playing, setPlaying] = useState(false);
 
   const { arrs, idx, done, stepFwd, stepRev, start } = useStepper(
     algorithms[algChoice],
@@ -26,6 +31,23 @@ function App() {
   useEffect(() => {
     start();
   }, [start]);
+
+  useEffect(() => {
+    if (!playing || done) return;
+
+    const id = setInterval(() => {
+      stepFwd();
+    }, 100);
+    return () => clearInterval(id);
+  }, [playing, stepFwd, done]);
+
+  const onTogglePlaying = () => {
+    setPlaying((playing) => !playing);
+  };
+  const onReset = () => {
+    setPlaying(false);
+    start();
+  };
 
   return (
     <>
@@ -49,6 +71,13 @@ function App() {
             &rarr;
           </button>
           <span>Step: {idx}</span>
+          {done && idx >= arrs.length - 1 ? (
+            <button onClick={onReset}>Reset</button>
+          ) : (
+            <button onClick={onTogglePlaying}>
+              {playing ? "Pause" : "Play"}
+            </button>
+          )}
         </div>
       </div>
     </>

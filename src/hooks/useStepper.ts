@@ -1,6 +1,6 @@
-import type { AlgorithmFactory } from "@/common/types";
 import { useCallback, useRef, useState } from "react";
 
+import type { AlgorithmFactory } from "@/common/types";
 
 export function useStepper(algFactory: AlgorithmFactory, initial: number[]) {
   const genRef = useRef<Generator<number[], number[], number[]> | null>(null);
@@ -22,7 +22,7 @@ export function useStepper(algFactory: AlgorithmFactory, initial: number[]) {
 
     if (idx >= arrs.length - 1) {
       const res = genRef.current.next();
-      setArrs([...arrs, res.value])
+      setArrs([...arrs, res.value]);
       if (res.done) {
         setDone(true);
       }
