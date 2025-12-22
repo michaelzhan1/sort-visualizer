@@ -19,7 +19,7 @@ export function Display({
   const innerWidth = width - padding * 2;
   const innerHeight = height - padding;
 
-  const barWidth = (innerWidth + 1) / n - 1;
+  const barWidth = (innerWidth + 2) / n - 2;
 
   const bulkColor = done ? "green" : "steelblue";
 
@@ -35,7 +35,7 @@ export function Display({
         {arr.map((val, i) => (
           <rect
             key={i}
-            x={i * (barWidth + 1)}
+            x={i * (barWidth + 2)}
             y={innerHeight - (val / maxVal) * innerHeight}
             width={barWidth}
             height={(val / maxVal) * innerHeight}
