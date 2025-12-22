@@ -1,7 +1,7 @@
-import type { Algorithm } from "@/common/types";
+import type { Algorithm, Step } from "@/common/types";
 
 export class Selection implements Algorithm {
-  *step(arr: number[]): Generator<number[], number[], number[]> {
+  *step(arr: number[]): Generator<Step[], Step[], number[]> {
     const n = arr.length;
     let prev = [...arr];
 

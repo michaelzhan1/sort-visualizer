@@ -1,5 +1,7 @@
+import type { Step } from "@/common/types";
+
 export interface DisplayProps {
-  arr: number[];
+  step: Step;
   done: boolean;
   width?: number;
   height?: number;

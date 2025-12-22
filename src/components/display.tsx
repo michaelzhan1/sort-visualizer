@@ -1,6 +1,12 @@
 import type { DisplayProps } from "@/components/types";
 
-export function Display({ arr, done, width = 400, height = 200 }: DisplayProps) {
+export function Display({
+  step,
+  done,
+  width = 400,
+  height = 200,
+}: DisplayProps) {
+  const { arr, highlights } = step;
   const n = arr.length;
   const maxVal = Math.max(...arr);
 
@@ -10,7 +16,26 @@ export function Display({ arr, done, width = 400, height = 200 }: DisplayProps) 
 
   const barWidth = (innerWidth + 1) / n - 1;
 
-  const color = done ? "green" : "steelblue";
+  const bulkColor = done ? "green" : "steelblue";
+
+  const rects = arr.map((val, i) => {
+    const barHeight = (val / maxVal) * innerHeight;
+    return (
+      <rect
+        key={i}
+        x={i * barWidth + i}
+        y={innerHeight - barHeight}
+        width={barWidth}
+        height={barHeight}
+        style={{ fill: bulkColor }}
+      />
+    );
+  });
+
+  // override color for highlights
+  for (const { color, idx } of highlights) {
+    rects[idx].props.style = { fill: color };
+  }
 
   return (
     <svg
@@ -18,22 +43,10 @@ export function Display({ arr, done, width = 400, height = 200 }: DisplayProps) 
       height={height}
       viewBox={`0 0 ${width} ${height}`}
       shapeRendering="crispEdges"
-      style={{ border: "1px black solid"}}
+      style={{ border: "1px black solid" }}
     >
       <g transform={`translate(${padding}, ${padding})`}>
-        {arr.map((val, i) => {
-          const barHeight = (val / maxVal) * innerHeight;
-          return (
-            <rect
-              key={i}
-              x={i * barWidth + i}
-              y={innerHeight - barHeight}
-              width={barWidth}
-              height={barHeight}
-              style={{ fill: color }}
-            />
-          );
-        })}
+        {rects}
       </g>
     </svg>
   );
