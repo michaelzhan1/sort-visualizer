@@ -1,4 +1,4 @@
-import type { Algorithm } from "@/sort/algorithm";
+import type { Algorithm } from "@/common/types";
 
 export class Bubble implements Algorithm {
   *step(arr: number[]): Generator<number[], number[], number[]> {
