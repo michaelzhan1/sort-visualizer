@@ -15,10 +15,6 @@ const algorithms: Record<AlgorithmName, AlgorithmFactory> = {
   Selection: () => new Selection(),
 };
 
-// todos:
-// highlighting
-// jump to step?
-
 function App() {
   const initial = shuffle(Array.from({ length: 10 }, (_, i) => i + 1));
   const [algChoice, setAlgChoice] = useState<AlgorithmName>("Bubble");

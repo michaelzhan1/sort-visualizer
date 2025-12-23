@@ -1,7 +1,7 @@
 import type { ALGORITHM_NAMES } from "@/common/constants";
 
 export interface Highlight {
-  color: "red" | "yellow";
+  color: "red" | "green";
   idx: number;
 }
 

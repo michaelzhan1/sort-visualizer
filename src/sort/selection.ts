@@ -16,16 +16,23 @@ export class Selection implements Algorithm {
         }
       }
 
+      if (i == minIdx) continue;
+
       const next = [...prev];
+      yield {
+        arr: next,
+        highlights: [
+          { color: "red", idx: i },
+          { color: "red", idx: minIdx },
+        ],
+      };
       next[i] = prev[minIdx];
       next[minIdx] = prev[i];
       yield {
         arr: next,
         highlights: [
-          {
-            color: "red",
-            idx: 1,
-          },
+          { color: "green", idx: i },
+          { color: "green", idx: minIdx },
         ],
       };
       prev = next;
