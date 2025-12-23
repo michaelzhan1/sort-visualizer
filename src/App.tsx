@@ -16,7 +16,7 @@ const algorithms: Record<AlgorithmName, AlgorithmFactory> = {
 };
 
 function App() {
-  const initial = shuffle(Array.from({ length: 10 }, (_, i) => i + 1));
+  const initial = shuffle(Array.from({ length: 15 }, (_, i) => i + 1));
   const [algChoice, setAlgChoice] = useState<AlgorithmName>("Bubble");
   const [playing, setPlaying] = useState(false);
 
@@ -33,7 +33,7 @@ function App() {
 
     const id = setInterval(() => {
       stepFwd();
-    }, 100);
+    }, 50);
     return () => clearInterval(id);
   }, [playing, stepFwd, done]);
 
