@@ -18,14 +18,15 @@ export class Selection implements Algorithm {
 
       if (i == minIdx) continue;
 
-      const next = [...prev];
+      const prenext = [...prev];
       yield {
-        arr: next,
+        arr: prenext,
         highlights: [
           { color: "red", idx: i },
           { color: "red", idx: minIdx },
         ],
       };
+      const next = [...prenext];
       next[i] = prev[minIdx];
       next[minIdx] = prev[i];
       yield {

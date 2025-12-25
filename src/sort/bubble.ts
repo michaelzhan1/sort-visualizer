@@ -8,17 +8,18 @@ export class Bubble implements Algorithm {
     for (let i = 0; i < n - 1; i++) {
       for (let j = n - 1; j >= 0; j--) {
         if (prev[j] > prev[j + 1]) {
-          const next = [...prev];
+          const prenext = [...prev];
           yield {
-            arr: next,
+            arr: prenext,
             highlights: [
               { color: "red", idx: j },
               { color: "red", idx: j + 1 },
             ],
           };
 
-          next[j] = prev[j + 1];
-          next[j + 1] = prev[j];
+          const next = [...prenext];
+          next[j] = prenext[j + 1];
+          next[j + 1] = prenext[j];
           yield {
             arr: next,
             highlights: [
