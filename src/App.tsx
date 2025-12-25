@@ -9,10 +9,12 @@ import { useStepper } from "@/hooks/useStepper";
 import { Bubble } from "@/sort/bubble";
 import { Selection } from "@/sort/selection";
 import { shuffle } from "@/utils/random.util";
+import { Insertion } from "@/sort/insertion";
 
 const algorithms: Record<AlgorithmName, AlgorithmFactory> = {
   Bubble: () => new Bubble(),
   Selection: () => new Selection(),
+  Insertion: () => new Insertion(),
 };
 
 function App() {
