@@ -6,15 +6,17 @@ import type { AlgorithmFactory, AlgorithmName } from "@/common/types";
 import { Display } from "@/components/display";
 import { Dropdown } from "@/components/dropdown";
 import { useStepper } from "@/hooks/useStepper";
+import { Bogo } from "@/sort/bogo";
 import { Bubble } from "@/sort/bubble";
+import { Insertion } from "@/sort/insertion";
 import { Selection } from "@/sort/selection";
 import { shuffle } from "@/utils/random.util";
-import { Insertion } from "@/sort/insertion";
 
 const algorithms: Record<AlgorithmName, AlgorithmFactory> = {
   Bubble: () => new Bubble(),
   Selection: () => new Selection(),
   Insertion: () => new Insertion(),
+  Bogo: () => new Bogo(),
 };
 
 function App() {
